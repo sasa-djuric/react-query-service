@@ -1,0 +1,1 @@
+Return whole react hook in service.queries instead of query settings
