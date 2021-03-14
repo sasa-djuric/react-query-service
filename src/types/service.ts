@@ -1,9 +1,14 @@
 // Types
 import { UseQueryOptions } from 'react-query';
-import Dictionary from './dictionary';
-import { MutationConfig, MutationFunction, ServiceMutation } from './mutation';
-import { QueryFunction, ServiceQuery } from './query';
-import UnwrapPromise from './unwrap-promise';
+import {
+	Dictionary,
+	MutationConfig,
+	MutationFunction,
+	ServiceMutation,
+	QueryFunction,
+	ServiceQuery,
+	UnwrapPromise
+} from '.';
 
 export interface ServiceI {
 	queries?: Dictionary<UseQueryOptions | QueryFunction>;

@@ -2,7 +2,7 @@
 import { QueryClient } from 'react-query';
 
 // Types
-import QueryClientConfig from './types/query-client-config';
+import { QueryClientConfig } from './types';
 
 let _client: QueryClient = new QueryClient();
 

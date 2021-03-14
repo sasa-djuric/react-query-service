@@ -1,3 +1,3 @@
-export default interface Dictionary<T = any> {
+export interface Dictionary<T = any> {
 	[key: string]: T;
 }

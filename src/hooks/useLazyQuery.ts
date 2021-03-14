@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { UseQueryOptions } from 'react-query';
 import { useQuery } from './useQuery';
-import { ServiceQuery, ServiceQueryReturn } from '../types/query';
+import { ServiceQuery, ServiceQueryReturn } from '../types';
 
 export const useLazyQuery = <T extends ServiceQuery | ServiceQueryReturn>(
 	queryFactory: T,

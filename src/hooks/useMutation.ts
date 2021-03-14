@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useMutation as useReactQueryMutation, UseMutationOptions } from 'react-query';
-import { ServiceMutation, ServiceMutationReturn } from '../types/mutation';
-import UnwrapPromise from '../types/unwrap-promise';
+import { ServiceMutation, ServiceMutationReturn, UnwrapPromise } from '../types';
 
 type MutationFnReturn<T extends ServiceMutationReturn> = UnwrapPromise<ReturnType<T['mutationFn']>>;
 

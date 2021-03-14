@@ -2,10 +2,16 @@
 import { MutateOptions, MutationObserver, UseMutationOptions, UseQueryOptions } from 'react-query';
 
 // Types
-import Dictionary from './types/dictionary';
-import { MutationConfig, MutationFunction, ServiceMutation } from './types/mutation';
-import { QueryFunction, ServiceQuery } from './types/query';
-import { ServiceI, CreateServiceReturn } from './types/service';
+import {
+	Dictionary,
+	MutationConfig,
+	MutationFunction,
+	ServiceMutation,
+	QueryFunction,
+	ServiceQuery,
+	ServiceI,
+	CreateServiceReturn
+} from './types';
 
 import { getClient } from './client';
 import { useQuery } from './hooks';

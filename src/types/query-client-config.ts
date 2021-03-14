@@ -1,5 +1,3 @@
 import { QueryClient } from 'react-query';
 
-type QueryClientConfig = ConstructorParameters<typeof QueryClient>[0];
-
-export default QueryClientConfig;
+export type QueryClientConfig = ConstructorParameters<typeof QueryClient>[0];

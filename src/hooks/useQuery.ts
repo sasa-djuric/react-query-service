@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useQuery as useReactQuery, UseQueryOptions } from 'react-query';
-import { ServiceQuery, ServiceQueryReturn } from '../types/query';
-import UnwrapPromise from '../types/unwrap-promise';
+import { ServiceQuery, ServiceQueryReturn, UnwrapPromise } from '../types';
 
 type QueryFnReturn<T extends ServiceQueryReturn> = UnwrapPromise<ReturnType<T['queryFn']>>;
 
