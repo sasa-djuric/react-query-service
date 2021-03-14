@@ -6,8 +6,7 @@ Wrapper around react query which provides the functionality of declaring queries
 
 ```jsx
 /* App.jsx */
-import { QueryClientProvider } from 'react-query';
-import { useQuery, createClient } from 'react-query-service';
+import { QueryClientProvider, useQuery, createClient } from 'react-query-service';
 import githubService from './github-service.js';
 
 const queryClient = createClient();
