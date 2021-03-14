@@ -14,7 +14,6 @@ import {
 } from './types';
 
 import { getClient } from './client';
-import { useQuery } from './hooks';
 import { paramsExists } from './utils';
 
 interface Fetch {
@@ -165,20 +164,3 @@ export function createService<T extends ServiceI>({ queries, mutations }: T): Cr
 
 	return service as CreateServiceReturn<T>;
 }
-
-const service = createService({
-	queries: {
-		get: {
-			queryFn: () => Promise.resolve('test')
-			// onSuccess() {
-			// 	service.queries.get().setData((data))
-			// }
-		},
-		getById: () => Promise.resolve('test')
-	},
-	mutations: {
-		getById: (test: string) => Promise.resolve('test')
-	}
-});
-
-const { data } = useQuery(service.queries.getById());
