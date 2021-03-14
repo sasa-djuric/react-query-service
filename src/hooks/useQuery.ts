@@ -5,7 +5,8 @@ import { ServiceQuery, ServiceQueryReturn, UnwrapPromise } from '../types';
 type QueryFnReturn<T extends ServiceQueryReturn> = UnwrapPromise<ReturnType<T['queryFn']>>;
 
 type QueryOptions<T extends ServiceQuery | ServiceQueryReturn> = T extends ServiceQuery
-	? ReturnType<ReturnType<T>>
+	? // @ts-ignore
+	  ReturnType<ReturnType<T>>
 	: T extends ServiceQueryReturn
 	? T
 	: unknown;
