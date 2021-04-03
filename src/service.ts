@@ -1,5 +1,5 @@
 // Libs
-import { MutateOptions, MutationObserver, UseMutationOptions, UseQueryOptions } from 'react-query';
+import { MutateOptions, MutationObserver, UseMutationOptions } from 'react-query';
 
 // Types
 import {
@@ -10,7 +10,8 @@ import {
 	QueryFunction,
 	ServiceQuery,
 	ServiceI,
-	CreateServiceReturn
+	CreateServiceReturn,
+	QueryConfig
 } from './types';
 
 import { getClient } from './client';
@@ -64,7 +65,7 @@ function mutate({ mutationKey, mutationFn, options }: Mutate) {
 	};
 }
 
-function serviceQueries(queries: Dictionary<QueryFunction<any> | UseQueryOptions>) {
+function serviceQueries(name: string, queries: Dictionary<QueryFunction<any> | QueryConfig>) {
 	const queriesResult: Dictionary<ServiceQuery> = {};
 	const service: Dictionary = {};
 
@@ -73,19 +74,19 @@ function serviceQueries(queries: Dictionary<QueryFunction<any> | UseQueryOptions
 	}
 
 	for (const entries of Object.entries(queries!)) {
-		const [queryKey, queryOptions]: [string, UseQueryOptions | QueryFunction] = entries;
+		const [queryKey, queryOptions]: [string, QueryConfig | QueryFunction] = entries;
 		const queryFn = typeof queryOptions === 'function' ? queryOptions : (queryOptions.queryFn as QueryFunction);
 		const haveOptions = typeof queryOptions !== 'function';
-		const options: UseQueryOptions = haveOptions ? (queryOptions as UseQueryOptions) : {};
+		const options: QueryConfig = haveOptions ? (queryOptions as QueryConfig) : {};
 
 		service[queryKey] = fetchQuery({
-			queryKey,
+			queryKey: `${name}:${queryKey}`,
 			queryFn,
 			options
 		});
 
 		queriesResult[queryKey] = (...params: any[]) => {
-			const processedQueryKey = paramsExists(params) ? [queryKey, ...params] : queryKey;
+			const processedQueryKey = paramsExists(params) ? [`${name}:${queryKey}`, ...params] : `${name}:${queryKey}`;
 			const queryClient = getClient();
 			const query = queryClient.getQueryCache().find(processedQueryKey);
 
@@ -113,7 +114,7 @@ function serviceQueries(queries: Dictionary<QueryFunction<any> | UseQueryOptions
 	};
 }
 
-function serviceMutation(mutations: Dictionary<MutationFunction<any> | MutationConfig>) {
+function serviceMutation(name: string, mutations: Dictionary<MutationFunction<any> | MutationConfig>) {
 	const mutationsResult: Dictionary<ServiceMutation> = {};
 	const service: Dictionary = {};
 
@@ -129,13 +130,13 @@ function serviceMutation(mutations: Dictionary<MutationFunction<any> | MutationC
 		const options: any = haveOptions ? (mutationOptions as UseMutationOptions) : {};
 
 		service[mutationKey] = mutate({
-			mutationKey,
+			mutationKey: `${name}:${mutationKey}`,
 			mutationFn,
 			options
 		});
 
 		mutationsResult[mutationKey] = (...params: any[]) => {
-			const processedQueryKey = params?.length ? [mutationKey, ...params] : mutationKey;
+			const processedQueryKey = params?.length ? [`${name}:${mutationKey}`, ...params] : `${name}:${mutationKey}`;
 
 			return {
 				mutationKey: processedQueryKey,
@@ -151,9 +152,9 @@ function serviceMutation(mutations: Dictionary<MutationFunction<any> | MutationC
 	};
 }
 
-export function createService<T extends ServiceI>({ queries, mutations }: T): CreateServiceReturn<T> {
-	const q = serviceQueries(queries);
-	const m = serviceMutation(mutations);
+export function createService<T extends ServiceI>({ name, queries, mutations }: T): CreateServiceReturn<T> {
+	const q = serviceQueries(name, queries);
+	const m = serviceMutation(name, mutations);
 
 	const service: Dictionary = {
 		...q.service,

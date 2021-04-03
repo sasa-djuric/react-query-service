@@ -11,6 +11,7 @@ import {
 } from '.';
 
 export interface ServiceI {
+	name: string;
 	queries?: Dictionary<UseQueryOptions | QueryFunction>;
 	mutations?: Dictionary<MutationConfig | MutationFunction>;
 }
