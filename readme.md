@@ -58,6 +58,7 @@ function createProfile(data) {
 }
 
 const githubService = createService({
+	name: 'github'
 	queries: {
 		getProfileById,
 		getProfiles

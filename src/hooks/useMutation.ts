@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useMutation as useReactQueryMutation, UseMutationOptions } from 'react-query';
 import { ServiceMutation, ServiceMutationReturn, UnwrapPromise } from '../types';
+import { combineOptions } from '../utils';
 
 type MutationFnReturn<T extends ServiceMutationReturn> = UnwrapPromise<ReturnType<T['mutationFn']>>;
 
@@ -23,10 +24,7 @@ export const useMutation = <T extends ServiceMutation | ServiceMutationReturn>(
 	const result = useReactQueryMutation<MutationFnReturn<MutationOptions<T>>>(
 		mutationOptions.mutationKey,
 		mutationOptions.mutationFn,
-		{
-			...mutationOptions,
-			...options
-		}
+		combineOptions(mutationOptions, options)
 	);
 
 	return {

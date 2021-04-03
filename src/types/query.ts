@@ -1,5 +1,7 @@
 import { UseQueryOptions } from 'react-query';
 
+export interface QueryConfig extends Omit<UseQueryOptions, 'queryKey'> {}
+
 export type QueryFunction<T = any> = (...args: any[]) => Promise<T>;
 
 export interface ServiceQueryReturn<T = any> {
