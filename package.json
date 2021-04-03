@@ -6,10 +6,7 @@
 	"description": "Wrapper around react query which provides the functionality of declaring queries outside of react.",
 	"main": "lib/index.js",
 	"files": [
-		"lib/*",
-		"LICENCE",
-		"readme.md",
-		"package.json"
+		"**/*"
 	],
 	"bugs": {
 		"url": "https://github.com/sasa-djuric/react-query-service/issues"
