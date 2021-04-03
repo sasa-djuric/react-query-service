@@ -11,6 +11,10 @@
 		"readme.md",
 		"package.json"
 	],
+	"bugs": {
+		"url": "https://github.com/sasa-djuric/react-query-service/issues"
+	},
+	"homepage": "https://github.com/sasa-djuric/react-query-service",
 	"scripts": {
 		"build": "node ./scripts/build.js",
 		"lint": "prettier --write src/**/*.ts --ignore-unknown"
